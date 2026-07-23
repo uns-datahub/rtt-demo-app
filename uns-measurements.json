@@ -1,0 +1,366 @@
+{
+  "schemaVersion": 2,
+  "counter": {
+    "giga": {
+      "value": "G",
+      "description": "Giga"
+    },
+    "kilo": {
+      "value": "k",
+      "description": "Kilo"
+    },
+    "mega": {
+      "value": "M",
+      "description": "Mega"
+    }
+  },
+  "dataSize": {
+    "bit": {
+      "value": "bit",
+      "description": "Bit"
+    },
+    "byte": {
+      "value": "B",
+      "description": "Bajt"
+    },
+    "exabyte": {
+      "value": "EB",
+      "description": "Eksabajt"
+    },
+    "gigabyte": {
+      "value": "GB",
+      "description": "Gigabajt"
+    },
+    "kilobyte": {
+      "value": "kB",
+      "description": "Kilobajt"
+    },
+    "megabyte": {
+      "value": "MB",
+      "description": "Megabajt"
+    },
+    "petabyte": {
+      "value": "PB",
+      "description": "Petabajt"
+    },
+    "terabyte": {
+      "value": "TB",
+      "description": "Terabajt"
+    },
+    "yottabyte": {
+      "value": "YB",
+      "description": "Jotabajt"
+    },
+    "zettabyte": {
+      "value": "ZB",
+      "description": "Zetabajt"
+    }
+  },
+  "physical": {
+    "ampere": {
+      "value": "A",
+      "description": "Amper"
+    },
+    "b": {
+      "value": "B",
+      "description": "Bajti"
+    },
+    "bar": {
+      "value": "bar",
+      "description": "Bar"
+    },
+    "bit": {
+      "value": "bit",
+      "description": "Bit"
+    },
+    "byte": {
+      "value": "byte",
+      "description": "Bajt"
+    },
+    "celsius": {
+      "value": "°C",
+      "description": "Stopinje Celzija"
+    },
+    "centimeterpersecond": {
+      "value": "cm/s",
+      "description": "Centimeter na sekundo"
+    },
+    "cubicmeter": {
+      "value": "m^3",
+      "description": "Kubični meter"
+    },
+    "cubicmeterperhour": {
+      "value": "m^3/h",
+      "description": "Kubični meter na uro"
+    },
+    "cubicmeterpersecond": {
+      "value": "m^3/s",
+      "description": "Kubični meter na sekundo"
+    },
+    "day": {
+      "value": "day",
+      "description": "Dan"
+    },
+    "decibel": {
+      "value": "dB",
+      "description": "Decibel"
+    },
+    "degree": {
+      "value": "°",
+      "description": "Stopinja"
+    },
+    "fahrenheit": {
+      "value": "°F",
+      "description": "Stopinje Fahrenheita"
+    },
+    "feet": {
+      "value": "ft",
+      "description": "Čevlji"
+    },
+    "gallon": {
+      "value": "gal",
+      "description": "Galona"
+    },
+    "gigajoule": {
+      "value": "GJ",
+      "description": "Gigadžul"
+    },
+    "gram": {
+      "value": "g",
+      "description": "Gram"
+    },
+    "hertz": {
+      "value": "Hz",
+      "description": "Herc"
+    },
+    "hour": {
+      "value": "h",
+      "description": "Ura"
+    },
+    "joule": {
+      "value": "J",
+      "description": "Džul"
+    },
+    "kelvin": {
+      "value": "K",
+      "description": "Kelvin"
+    },
+    "kiloampere": {
+      "value": "kA",
+      "description": "Kiloamper"
+    },
+    "kilogram": {
+      "value": "kg",
+      "description": "Kilogram"
+    },
+    "kilojoule": {
+      "value": "kJ",
+      "description": "Kilodžul"
+    },
+    "kilometer": {
+      "value": "km",
+      "description": "Kilometer"
+    },
+    "kilometerperhour": {
+      "value": "km/h",
+      "description": "Kilometer na uro"
+    },
+    "kilovolt": {
+      "value": "kV",
+      "description": "Kilovolt"
+    },
+    "kilovoltampere": {
+      "value": "kVA",
+      "description": "Kilovolt-amper"
+    },
+    "kilovoltamperereactive": {
+      "value": "kVAR",
+      "description": "Kilovolt-reaktivni amper"
+    },
+    "kilowatt": {
+      "value": "kW",
+      "description": "Kilowatt"
+    },
+    "kilowatthour": {
+      "value": "kWh",
+      "description": "Kilowattna ura"
+    },
+    "liter": {
+      "value": "l",
+      "description": "Liter"
+    },
+    "megaampere": {
+      "value": "MA",
+      "description": "Megaamper"
+    },
+    "megagramperhour": {
+      "value": "Mg/h",
+      "description": "Megagram na uro"
+    },
+    "megajoule": {
+      "value": "MJ",
+      "description": "Megadžul"
+    },
+    "megavolt": {
+      "value": "MV",
+      "description": "Megavolt"
+    },
+    "megavoltampere": {
+      "value": "MVA",
+      "description": "Megavolt-amper"
+    },
+    "megavoltamperereactive": {
+      "value": "MVAR",
+      "description": "Megavolt-reaktivni amper"
+    },
+    "megawatt": {
+      "value": "MW",
+      "description": "Megawatt"
+    },
+    "megawatthour": {
+      "value": "MWh",
+      "description": "Megawattna ura"
+    },
+    "meter": {
+      "value": "m",
+      "description": "Meter"
+    },
+    "meterperhour": {
+      "value": "m/h",
+      "description": "Meter na uro"
+    },
+    "meterperminute": {
+      "value": "m/min",
+      "description": "Meter na minuto"
+    },
+    "meterpersecond": {
+      "value": "m/s",
+      "description": "Meter na sekundo"
+    },
+    "metricton": {
+      "value": "t",
+      "description": "Tona"
+    },
+    "metrictonperhour": {
+      "value": "t/h",
+      "description": "Tona na uro"
+    },
+    "miliampere": {
+      "value": "mA",
+      "description": "Miliamper"
+    },
+    "miligram": {
+      "value": "mg",
+      "description": "Miligram"
+    },
+    "milijoule": {
+      "value": "mJ",
+      "description": "Milidžul"
+    },
+    "milimeter": {
+      "value": "mm",
+      "description": "Milimeter"
+    },
+    "milimeterpersecond": {
+      "value": "mm/s",
+      "description": "Milimeter na sekundo"
+    },
+    "milivolt": {
+      "value": "mV",
+      "description": "Milivolt"
+    },
+    "milivoltampere": {
+      "value": "mVA",
+      "description": "Milivolt-amper"
+    },
+    "milivoltamperereactive": {
+      "value": "mVAR",
+      "description": "Milivolt-reaktivni amper"
+    },
+    "miliwatt": {
+      "value": "mW",
+      "description": "Miliwatt"
+    },
+    "miliwatthour": {
+      "value": "mWh",
+      "description": "Miliwattna ura"
+    },
+    "minute": {
+      "value": "min",
+      "description": "Minuta"
+    },
+    "newton": {
+      "value": "N",
+      "description": "Njuton"
+    },
+    "none": {
+      "value": "",
+      "description": "Brez enote"
+    },
+    "normalcubicmeter": {
+      "value": "Nm^3",
+      "label": "Normal cubic meter",
+      "description": "Normalni kubični meter"
+    },
+    "partsperbillion": {
+      "value": "ppb",
+      "description": "Delci na milijardo"
+    },
+    "partspermillion": {
+      "value": "ppm",
+      "description": "Delci na milijon"
+    },
+    "partspertrillion": {
+      "value": "ppt",
+      "description": "Delci na trilijon"
+    },
+    "pascal": {
+      "value": "Pa",
+      "description": "Pascal"
+    },
+    "percent": {
+      "value": "percent",
+      "description": "Odstotek"
+    },
+    "psi": {
+      "value": "psi",
+      "description": "Funt na kvadratni palec"
+    },
+    "radian": {
+      "value": "rad",
+      "description": "Radian"
+    },
+    "revolutionsperminute": {
+      "value": "rpm",
+      "description": "Obratov na minuto"
+    },
+    "second": {
+      "value": "s",
+      "description": "Sekunda"
+    },
+    "terajoule": {
+      "value": "TJ",
+      "description": "Teradžul"
+    },
+    "volt": {
+      "value": "V",
+      "description": "Volt"
+    },
+    "voltampere": {
+      "value": "VA",
+      "description": "Volt-amper"
+    },
+    "voltamperereactive": {
+      "value": "VAR",
+      "description": "Volt-reaktivni amper"
+    },
+    "watt": {
+      "value": "W",
+      "description": "Watt"
+    },
+    "watthour": {
+      "value": "Wh",
+      "description": "Wattna ura"
+    }
+  }
+}

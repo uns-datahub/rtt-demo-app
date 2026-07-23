@@ -1,0 +1,1026 @@
+{
+  "schemaVersion": 2,
+  "assets": {
+    "demo/steelworks/hot-rolling/area": {
+      "description": "Hot rolling demo area"
+    },
+    "demo/steelworks/hot-rolling/hrm-queue": {
+      "description": "Production queue"
+    },
+    "demo/steelworks/hot-rolling/hrm-pusher-furnace": {
+      "description": "Pusher reheating furnace"
+    },
+    "demo/steelworks/hot-rolling/hrm-descaling": {
+      "description": "Hydraulic descaling"
+    },
+    "demo/steelworks/hot-rolling/hrm-stand-1": {
+      "description": "Reversing rolling stand"
+    },
+    "demo/steelworks/hot-rolling/hrm-warehouse": {
+      "description": "Warehouse and quality lab"
+    },
+    "system/hrm": {
+      "description": "HRM simulator service"
+    }
+  },
+  "objectTypes": {
+    "capture": {
+      "label": "capture",
+      "description": "System-managed: windowed capture/logging outputs. One ObjectId per capture definition; the leaf Table attribute is the table output.",
+      "attributes": [
+        {
+          "key": "records",
+          "sortOrder": 10
+        }
+      ],
+      "system": true
+    },
+    "consumable-resource": {
+      "description": "Maziva, olja, čistila, ki se porabijo in niso del izdelka.",
+      "attributes": [
+        "level",
+        "consumption-rate",
+        "refill-required",
+        "last-refill",
+        "status"
+      ]
+    },
+    "energy-meter": {
+      "description": "Merilno mesto za aktivno/jalovo energijo in moč.",
+      "attributes": [
+        "power",
+        "active-energy-delivered",
+        "active-energy-received",
+        "reactive-energy-delivered",
+        "reactive-energy-received",
+        "voltage",
+        "current",
+        "frequency"
+      ]
+    },
+    "energy-resource": {
+      "description": "Energija (elektrika, para, plin).",
+      "aliases": {
+        "en": [
+          {
+            "kind": "key",
+            "value": "energy resource",
+            "weight": 1
+          },
+          {
+            "kind": "related",
+            "value": "utility energy",
+            "weight": 1
+          }
+        ],
+        "sl": [
+          {
+            "kind": "related",
+            "value": "elektrika",
+            "weight": 1
+          },
+          {
+            "kind": "broader",
+            "value": "energija",
+            "weight": 1
+          },
+          {
+            "kind": "related",
+            "value": "para",
+            "weight": 1
+          },
+          {
+            "kind": "related",
+            "value": "plin",
+            "weight": 1
+          }
+        ]
+      },
+      "attributes": [
+        "power",
+        "energy",
+        "active-energy-delivered",
+        "active-energy-received",
+        "reactive-energy-delivered",
+        "reactive-energy-received",
+        "voltage",
+        "current",
+        "frequency",
+        "cost"
+      ]
+    },
+    "equipment": {
+      "description": "Fizična oprema (stroji, peči, senzorji). Uporablja se za spremljanje stanja, meritev in dogodkov.",
+      "attributes": [
+        "status",
+        "temperature",
+        "vibration",
+        "operating-hours",
+        "fault-code",
+        "speed",
+        "energy-consumption",
+        "power",
+        "current",
+        "pressure",
+        "flow",
+        "level",
+        "force",
+        "torque",
+        "position",
+        "slot-index",
+        "output-quantity",
+        "oxygen-concentration",
+        "stoichiometric-ratio"
+      ]
+    },
+    "fluid-resource": {
+      "description": "Tekočine in plini, ki niso energenti.",
+      "attributes": [
+        "flow",
+        "pressure",
+        "temperature",
+        "total-flow",
+        "level",
+        "consumption",
+        "status",
+        "conductivity",
+        "ph"
+      ]
+    },
+    "gas-meter": {
+      "label": "Gas meter",
+      "description": "Merjenje plina.",
+      "aliases": {
+        "en": [
+          {
+            "kind": "synonym",
+            "value": "gas measurement point",
+            "weight": 0
+          }
+        ],
+        "sl": [
+          {
+            "kind": "operator-term",
+            "value": "merilnik plina",
+            "weight": 1
+          },
+          {
+            "kind": "operator-term",
+            "value": "merilno mesto plina",
+            "weight": 0
+          }
+        ]
+      },
+      "attributes": [
+        {
+          "key": "consumption",
+          "sortOrder": 10
+        },
+        {
+          "key": "consumption-rate",
+          "sortOrder": 20
+        },
+        {
+          "key": "temperature",
+          "sortOrder": 30
+        },
+        {
+          "key": "meter-serial-number",
+          "sortOrder": 40
+        },
+        {
+          "key": "metering-point-number",
+          "sortOrder": 50
+        },
+        {
+          "key": "interval-consumption",
+          "sortOrder": 60
+        }
+      ]
+    },
+    "material": {
+      "label": "Material",
+      "description": "Tracked production material identity.",
+      "attributes": [
+        {
+          "key": "location",
+          "sortOrder": 10
+        },
+        {
+          "key": "previous-material",
+          "sortOrder": 20
+        },
+        {
+          "key": "process-state",
+          "sortOrder": 30
+        }
+      ],
+      "family": "material-lineage",
+      "system": true
+    },
+    "personnel": {
+      "description": "Osebje (operaterji, nadzorniki, tehnologi). Za prisotnost, naloge in status.",
+      "attributes": [
+        "presence",
+        "task-id",
+        "role",
+        "status"
+      ]
+    },
+    "process-segment": {
+      "description": "Posamezen korak v procesu (npr. valjanje, hlajenje, analiza). Za faze ali aktivnosti procesa.",
+      "attributes": [
+        "start-time",
+        "end-time",
+        "duration",
+        "status",
+        "output-quantity"
+      ]
+    },
+    "product-definition": {
+      "description": "Definicija izdelka, recepture, tehnični opisi. Za metapodatke izdelka in revizije.",
+      "attributes": [
+        "product-code",
+        "revision",
+        "specification",
+        "target-parameters",
+        "material-composition",
+        "version-history"
+      ]
+    },
+    "product-quality": {
+      "description": "Kazalniki kakovosti izdelka (odstopanja, ocene, rezultati meritev).",
+      "attributes": [
+        "inspection-result",
+        "deviation",
+        "pass-fail",
+        "surface-defect",
+        "hardness",
+        "tensile-strength"
+      ]
+    },
+    "resource-status": {
+      "description": "Status kateregakoli vira (material, osebje, oprema). Za razpoložljivost, okvare, izrabo.",
+      "aliases": {
+        "en": [
+          {
+            "kind": "key",
+            "value": "resource status",
+            "weight": 1
+          }
+        ],
+        "sl": [
+          {
+            "kind": "related",
+            "value": "izraba opreme",
+            "weight": 1
+          },
+          {
+            "kind": "related",
+            "value": "okvara opreme",
+            "weight": 1
+          },
+          {
+            "kind": "related",
+            "value": "razpoložljivost vira",
+            "weight": 1
+          },
+          {
+            "kind": "related",
+            "value": "status resursa",
+            "weight": 1
+          },
+          {
+            "kind": "exact",
+            "value": "status vira",
+            "weight": 1
+          }
+        ]
+      },
+      "attributes": [
+        "availability",
+        "utilization",
+        "downtime",
+        "status",
+        "maintenance-status"
+      ]
+    },
+    "trigger": {
+      "label": "trigger",
+      "description": "System-managed: outputs of reactive trigger rules. One ObjectId per trigger; one Attribute leaf per fire payload.",
+      "attributes": [
+        {
+          "key": "alarm",
+          "sortOrder": 100
+        }
+      ],
+      "system": true
+    },
+    "utility-resource": {
+      "description": "Utility viri (voda, zrak, dušik, stisnjeni plini).",
+      "aliases": {
+        "en": [
+          {
+            "kind": "description",
+            "value": "compressed gases",
+            "weight": 1
+          },
+          {
+            "kind": "english",
+            "value": "utility media",
+            "weight": 1
+          },
+          {
+            "kind": "key",
+            "value": "utility resource",
+            "weight": 1
+          },
+          {
+            "kind": "english",
+            "value": "utility resources",
+            "weight": 1
+          }
+        ],
+        "sl": [
+          {
+            "kind": "description",
+            "value": "stisnjeni plini",
+            "weight": 1
+          },
+          {
+            "kind": "description",
+            "value": "utility viri",
+            "weight": 1
+          },
+          {
+            "kind": "description",
+            "value": "viri utilities",
+            "weight": 1
+          },
+          {
+            "kind": "description",
+            "value": "voda zrak dušik",
+            "weight": 1
+          }
+        ]
+      },
+      "attributes": [
+        "pressure",
+        "flow",
+        "consumption",
+        "status",
+        "alarm"
+      ]
+    },
+    "work-definition": {
+      "description": "Definicija nalog ali delovnih tokov. Za planirane operacije in navodila.",
+      "attributes": [
+        "work-order-id",
+        "task-list",
+        "planned-start",
+        "planned-end",
+        "assigned-to",
+        "instruction-url"
+      ]
+    }
+  },
+  "attributes": {
+    "active-energy-delivered": {
+      "description": "Oddana delovna energija (izvoz).",
+      "descriptions": {
+        "en": "Active energy delivered (exported).",
+        "sl": "Oddana delovna energija (izvoz)."
+      },
+      "aliases": {
+        "en": [
+          {
+            "kind": "exact",
+            "value": "active energy delivered",
+            "weight": 1
+          },
+          {
+            "kind": "related",
+            "value": "exported active energy",
+            "weight": 1
+          }
+        ],
+        "sl": [
+          {
+            "kind": "related",
+            "value": "aktivna energija izvoz",
+            "weight": 1
+          },
+          {
+            "kind": "related",
+            "value": "izvoz energije",
+            "weight": 1
+          },
+          {
+            "kind": "exact",
+            "value": "oddana delovna energija",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    "active-energy-received": {
+      "description": "Prejeta delovna energija (uvoz).",
+      "descriptions": {
+        "en": "Active energy received (imported).",
+        "sl": "Prejeta delovna energija (uvoz)."
+      }
+    },
+    "alarm": {
+      "description": "Alarmni signal.",
+      "descriptions": {
+        "en": "Alarm.",
+        "sl": "Alarmni signal."
+      }
+    },
+    "assigned-to": {
+      "description": "Dodeljeno osebi ali ekipi.",
+      "descriptions": {
+        "en": "Assigned to person/team.",
+        "sl": "Dodeljeno osebi ali ekipi."
+      }
+    },
+    "authorization-level": {
+      "description": "Nivo pooblastil.",
+      "descriptions": {
+        "en": "Authorization level.",
+        "sl": "Nivo pooblastil."
+      }
+    },
+    "availability": {
+      "description": "Razpoložljivost vira.",
+      "descriptions": {
+        "en": "Resource availability.",
+        "sl": "Razpoložljivost vira."
+      }
+    },
+    "batch-number": {
+      "description": "Številka serije (batch).",
+      "descriptions": {
+        "en": "Batch number.",
+        "sl": "Številka serije (batch)."
+      }
+    },
+    "conductivity": {
+      "description": "Prevodnost.",
+      "descriptions": {
+        "en": "Conductivity.",
+        "sl": "Prevodnost."
+      }
+    },
+    "consumption": {
+      "description": "Poraba.",
+      "descriptions": {
+        "en": "Consumption.",
+        "sl": "Poraba."
+      },
+      "valueType": "number",
+      "presentationKind": "counter",
+      "defaultAggregation": "last"
+    },
+    "consumption-rate": {
+      "description": "Hitrost porabe.",
+      "descriptions": {
+        "en": "Consumption rate.",
+        "sl": "Hitrost porabe."
+      }
+    },
+    "cost": {
+      "description": "Strošek.",
+      "descriptions": {
+        "en": "Cost.",
+        "sl": "Strošek."
+      }
+    },
+    "current": {
+      "description": "Tok.",
+      "descriptions": {
+        "en": "Current.",
+        "sl": "Tok."
+      }
+    },
+    "daily-production": {
+      "description": "Dnevna proizvodnja",
+      "descriptions": {
+        "sl": "Dnevna proizvodnja"
+      },
+      "valueType": "number",
+      "preferredUom": "t",
+      "presentationKind": "chart",
+      "defaultAggregation": "last"
+    },
+    "deviation": {
+      "description": "Odstopanje od specifikacije.",
+      "descriptions": {
+        "en": "Deviation from specification.",
+        "sl": "Odstopanje od specifikacije."
+      }
+    },
+    "downtime": {
+      "description": "Zastoj/izpad.",
+      "descriptions": {
+        "en": "Downtime.",
+        "sl": "Zastoj/izpad."
+      }
+    },
+    "duration": {
+      "description": "Trajanje faze ali naloge.",
+      "descriptions": {
+        "en": "Duration of phase/task.",
+        "sl": "Trajanje faze ali naloge."
+      }
+    },
+    "end-time": {
+      "description": "Čas zaključka.",
+      "descriptions": {
+        "en": "End time.",
+        "sl": "Čas zaključka."
+      }
+    },
+    "energy": {
+      "description": "Energija.",
+      "descriptions": {
+        "en": "Energy.",
+        "sl": "Energija."
+      }
+    },
+    "energy-consumption": {
+      "description": "Poraba energije.",
+      "descriptions": {
+        "en": "Energy consumption.",
+        "sl": "Poraba energije."
+      }
+    },
+    "fault-code": {
+      "description": "Koda napake.",
+      "descriptions": {
+        "en": "Fault code.",
+        "sl": "Koda napake."
+      }
+    },
+    "flow": {
+      "description": "Pretok.",
+      "descriptions": {
+        "en": "Flow.",
+        "sl": "Pretok."
+      }
+    },
+    "force": {
+      "description": "Valjalna ali potisna sila.",
+      "descriptions": {
+        "en": "Rolling or pushing force.",
+        "sl": "Valjalna ali potisna sila."
+      }
+    },
+    "frequency": {
+      "description": "Frekvenca.",
+      "descriptions": {
+        "en": "Frequency.",
+        "sl": "Frekvenca."
+      }
+    },
+    "hardness": {
+      "description": "Trdota materiala.",
+      "descriptions": {
+        "en": "Material hardness.",
+        "sl": "Trdota materiala."
+      }
+    },
+    "inspection-result": {
+      "description": "Rezultat pregleda.",
+      "descriptions": {
+        "en": "Inspection result.",
+        "sl": "Rezultat pregleda."
+      }
+    },
+    "instruction-url": {
+      "description": "Povezava do navodil.",
+      "descriptions": {
+        "en": "Instruction URL.",
+        "sl": "Povezava do navodil."
+      }
+    },
+    "interval-consumption": {
+      "description": "Poraba v časovnem intervalu; ni kumulativno stanje števca.",
+      "descriptions": {
+        "sl": "Poraba v časovnem intervalu; ni kumulativno stanje števca."
+      },
+      "valueType": "number",
+      "presentationKind": "delta"
+    },
+    "last-refill": {
+      "description": "Zadnje polnjenje.",
+      "descriptions": {
+        "en": "Last refill.",
+        "sl": "Zadnje polnjenje."
+      }
+    },
+    "level": {
+      "description": "Nivo zaloge ali rezervoarja.",
+      "descriptions": {
+        "en": "Level in stock/tank.",
+        "sl": "Nivo zaloge ali rezervoarja."
+      }
+    },
+    "location": {
+      "label": "Location",
+      "description": "Process-location event for an object, including entered/exited state and event timestamps.",
+      "valueType": "object",
+      "presentationKind": "event",
+      "lifecycle": {
+        "endValues": [
+          "COMPLETED",
+          "EXITED",
+          "FINISHED"
+        ],
+        "startTimestampFrom": "value.startTime",
+        "startValues": [
+          "ENTERED",
+          "STARTED"
+        ],
+        "stateFrom": "value.event",
+        "timestampFrom": "value.endTime"
+      },
+      "systemRole": "lifecycle-time-source"
+    },
+    "lot-id": {
+      "description": "Identifikator lota.",
+      "descriptions": {
+        "en": "Lot identifier.",
+        "sl": "Identifikator lota."
+      }
+    },
+    "maintenance-status": {
+      "description": "Stanje vzdrževanja.",
+      "descriptions": {
+        "en": "Maintenance status.",
+        "sl": "Stanje vzdrževanja."
+      }
+    },
+    "material-composition": {
+      "description": "Sestava materiala.",
+      "descriptions": {
+        "en": "Material composition.",
+        "sl": "Sestava materiala."
+      }
+    },
+    "material-type": {
+      "description": "Tip materiala.",
+      "descriptions": {
+        "en": "Material type.",
+        "sl": "Tip materiala."
+      }
+    },
+    "meter-serial-number": {
+      "description": "Serijska številka merilne naprave",
+      "descriptions": {
+        "sl": "Serijska številka merilne naprave"
+      }
+    },
+    "metering-point-number": {
+      "description": "Številka merilnega mesta",
+      "descriptions": {
+        "sl": "Številka merilnega mesta"
+      }
+    },
+    "operating-hours": {
+      "description": "Število obratovalnih ur.",
+      "descriptions": {
+        "en": "Operating hours.",
+        "sl": "Število obratovalnih ur."
+      }
+    },
+    "operator-id": {
+      "description": "Identifikator operaterja.",
+      "descriptions": {
+        "en": "Operator identifier.",
+        "sl": "Identifikator operaterja."
+      }
+    },
+    "slot-index": {
+      "description": "Trenutni indeks reže ali pozicije materiala.",
+      "descriptions": {
+        "en": "Current slot or material position index.",
+        "sl": "Trenutni indeks reže ali pozicije materiala."
+      },
+      "valueType": "number",
+      "presentationKind": "state",
+      "defaultAggregation": "last"
+    },
+    "output-quantity": {
+      "description": "Izhodna količina.",
+      "descriptions": {
+        "en": "Output quantity.",
+        "sl": "Izhodna količina."
+      },
+      "valueType": "number",
+      "presentationKind": "counter",
+      "defaultAggregation": "last"
+    },
+    "oxygen-concentration": {
+      "description": "Koncentracija kisika v procesu ali dimnih plinih.",
+      "descriptions": {
+        "en": "Oxygen concentration in process or flue gas.",
+        "sl": "Koncentracija kisika v procesu ali dimnih plinih."
+      }
+    },
+    "pass-fail": {
+      "description": "Uspešno/neuspešno (pass/fail).",
+      "descriptions": {
+        "en": "Pass/fail result.",
+        "sl": "Uspešno/neuspešno (pass/fail)."
+      }
+    },
+    "ph": {
+      "description": "pH vrednost.",
+      "descriptions": {
+        "en": "pH value.",
+        "sl": "pH vrednost."
+      }
+    },
+    "planned-end": {
+      "description": "Planirani zaključek.",
+      "descriptions": {
+        "en": "Planned end.",
+        "sl": "Planirani zaključek."
+      }
+    },
+    "planned-start": {
+      "description": "Planirani začetek.",
+      "descriptions": {
+        "en": "Planned start.",
+        "sl": "Planirani začetek."
+      }
+    },
+    "position": {
+      "description": "Položaj aktuatorja, ventila ali nastavitve.",
+      "descriptions": {
+        "en": "Actuator, valve, or setting position.",
+        "sl": "Položaj aktuatorja, ventila ali nastavitve."
+      }
+    },
+    "power": {
+      "description": "Moč.",
+      "descriptions": {
+        "en": "Power.",
+        "sl": "Moč."
+      }
+    },
+    "presence": {
+      "description": "Prisotnost osebja.",
+      "descriptions": {
+        "en": "Personnel presence.",
+        "sl": "Prisotnost osebja."
+      }
+    },
+    "pressure": {
+      "description": "Tlak.",
+      "descriptions": {
+        "en": "Pressure.",
+        "sl": "Tlak."
+      }
+    },
+    "previous-material": {
+      "label": "Previous material",
+      "description": "Previous material identity before the current process-location identifier was assigned.",
+      "valueType": "string",
+      "presentationKind": "state",
+      "relationshipEvidence": {
+        "defaultStatus": "suggested",
+        "observedAtFrom": "packetTimestamp",
+        "ownerEndpoint": "target",
+        "relationshipKey": "material-renumbering",
+        "relationshipReviewPolicy": "suggest",
+        "sourceFullTopicFrom": "nearestPriorLifecycleObjectFullTopic",
+        "sourceObjectIdFrom": "value",
+        "sourceObjectType": "material",
+        "targetObjectIdFrom": "ownerObjectId",
+        "targetObjectType": "material",
+        "valueEndpoint": "source"
+      },
+      "systemRole": "relationship-evidence"
+    },
+    "process-state": {
+      "label": "Process state",
+      "description": "Scalar lifecycle state for an object at a process step.",
+      "valueType": "string",
+      "presentationKind": "state",
+      "lifecycle": {
+        "endValues": [
+          "COMPLETED",
+          "EXITED",
+          "FINISHED"
+        ],
+        "startValues": [
+          "ENTERED",
+          "PROCESSING",
+          "STARTED"
+        ],
+        "timestampFrom": "packetTimestamp"
+      },
+      "systemRole": "lifecycle-time-source"
+    },
+    "product-code": {
+      "description": "Koda izdelka.",
+      "descriptions": {
+        "en": "Product code.",
+        "sl": "Koda izdelka."
+      }
+    },
+    "quantity": {
+      "description": "Količina materiala.",
+      "descriptions": {
+        "en": "Material quantity.",
+        "sl": "Količina materiala."
+      }
+    },
+    "reactive-energy-delivered": {
+      "description": "Oddana jalova energija (izvoz).",
+      "descriptions": {
+        "en": "Reactive energy delivered (exported).",
+        "sl": "Oddana jalova energija (izvoz)."
+      }
+    },
+    "reactive-energy-received": {
+      "description": "Prejeta jalova energija (uvoz).",
+      "descriptions": {
+        "en": "Reactive energy received (imported).",
+        "sl": "Prejeta jalova energija (uvoz)."
+      }
+    },
+    "records": {
+      "label": "records",
+      "description": "Default Table attribute containing rows emitted by a capture definition.",
+      "valueType": "table",
+      "presentationKind": "table",
+      "isNumeric": false,
+      "isComparable": false,
+      "attributeType": "Table",
+      "dataGroup": "capture",
+      "derivedFromSystemObjectType": "capture"
+    },
+    "refill-required": {
+      "description": "Potrebno dolivanje/dopolnitev.",
+      "descriptions": {
+        "en": "Refill required.",
+        "sl": "Potrebno dolivanje/dopolnitev."
+      }
+    },
+    "revision": {
+      "description": "Revizija izdelka.",
+      "descriptions": {
+        "en": "Product revision.",
+        "sl": "Revizija izdelka."
+      }
+    },
+    "role": {
+      "description": "Vloga osebja.",
+      "descriptions": {
+        "en": "Personnel role.",
+        "sl": "Vloga osebja."
+      }
+    },
+    "specification": {
+      "description": "Tehnične specifikacije.",
+      "descriptions": {
+        "en": "Technical specifications.",
+        "sl": "Tehnične specifikacije."
+      }
+    },
+    "speed": {
+      "description": "Hitrost delovanja.",
+      "descriptions": {
+        "en": "Operating speed.",
+        "sl": "Hitrost delovanja."
+      }
+    },
+    "start-time": {
+      "description": "Čas začetka.",
+      "descriptions": {
+        "en": "Start time.",
+        "sl": "Čas začetka."
+      }
+    },
+    "status": {
+      "description": "Trenutno stanje vira ali opreme.",
+      "descriptions": {
+        "en": "Current status of the resource.",
+        "sl": "Trenutno stanje vira ali opreme."
+      }
+    },
+    "stoichiometric-ratio": {
+      "description": "Stehiometrično razmerje zgorevanja.",
+      "descriptions": {
+        "en": "Combustion stoichiometric ratio.",
+        "sl": "Stehiometrično razmerje zgorevanja."
+      }
+    },
+    "surface-defect": {
+      "description": "Površinska napaka.",
+      "descriptions": {
+        "en": "Surface defect.",
+        "sl": "Površinska napaka."
+      }
+    },
+    "target-parameters": {
+      "description": "Ciljni parametri izdelka ali procesa.",
+      "descriptions": {
+        "en": "Target parameters.",
+        "sl": "Ciljni parametri izdelka ali procesa."
+      }
+    },
+    "task-id": {
+      "description": "Identifikator naloge.",
+      "descriptions": {
+        "en": "Task identifier.",
+        "sl": "Identifikator naloge."
+      }
+    },
+    "task-list": {
+      "description": "Seznam nalog.",
+      "descriptions": {
+        "en": "Task list.",
+        "sl": "Seznam nalog."
+      }
+    },
+    "temperature": {
+      "description": "Temperatura vira/opreme.",
+      "descriptions": {
+        "en": "Temperature of the resource.",
+        "sl": "Temperatura vira/opreme."
+      }
+    },
+    "tensile-strength": {
+      "description": "Natezna trdnost.",
+      "descriptions": {
+        "en": "Tensile strength.",
+        "sl": "Natezna trdnost."
+      }
+    },
+    "torque": {
+      "description": "Navor pogona ali gredi.",
+      "descriptions": {
+        "en": "Drive or shaft torque.",
+        "sl": "Navor pogona ali gredi."
+      }
+    },
+    "total-flow": {
+      "description": "Skupni pretok.",
+      "descriptions": {
+        "en": "Total flow.",
+        "sl": "Skupni pretok."
+      }
+    },
+    "utilization": {
+      "description": "Izraba vira.",
+      "descriptions": {
+        "en": "Resource utilization.",
+        "sl": "Izraba vira."
+      }
+    },
+    "version-history": {
+      "description": "Zgodovina verzij.",
+      "descriptions": {
+        "en": "Version history.",
+        "sl": "Zgodovina verzij."
+      }
+    },
+    "vibration": {
+      "description": "Merjena vibracija.",
+      "descriptions": {
+        "en": "Measured vibration.",
+        "sl": "Merjena vibracija."
+      }
+    },
+    "voltage": {
+      "description": "Napetost.",
+      "descriptions": {
+        "en": "Voltage.",
+        "sl": "Napetost."
+      }
+    },
+    "work-order-id": {
+      "description": "Identifikator delovnega naloga.",
+      "descriptions": {
+        "en": "Work order ID.",
+        "sl": "Identifikator delovnega naloga."
+      }
+    }
+  },
+  "relationships": {
+    "material-renumbering": {
+      "label": "Material renumbering",
+      "description": "Connects a material object identity to the next identity assigned when the same product moves to another process location.",
+      "fromObjectType": "material",
+      "toObjectType": "material",
+      "relationshipKind": "renumbered_to",
+      "cardinality": "one_to_one",
+      "family": "material-lineage",
+      "system": true
+    }
+  }
+}
